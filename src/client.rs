@@ -13,8 +13,8 @@
  */
 use crate::config::Config;
 use crate::error::{Error, ErrorResponse, Result};
-use reqwest::blocking::{Client as HttpClient, Response};
 use reqwest::StatusCode;
+use reqwest::blocking::{Client as HttpClient, Response};
 use std::sync::Arc;
 use url::Url;
 

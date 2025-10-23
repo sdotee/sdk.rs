@@ -1,7 +1,7 @@
 use see_rust_sdk::client::Client;
 use see_rust_sdk::config::Config;
-use see_rust_sdk::url::builder::UrlShortenerRequestBuilder;
 use see_rust_sdk::url::ShortenService;
+use see_rust_sdk::url::builder::UrlShortenerRequestBuilder;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a client with default configuration

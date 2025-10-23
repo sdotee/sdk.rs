@@ -3,9 +3,9 @@ use std::{thread, time::Duration};
 use see_rust_sdk::client::Client;
 use see_rust_sdk::config::Config;
 use see_rust_sdk::error::Error;
+use see_rust_sdk::url::ShortenService;
 use see_rust_sdk::url::builder::UrlShortenerRequestBuilder;
 use see_rust_sdk::url::models::ShortenResponse;
-use see_rust_sdk::url::ShortenService;
 
 /// Helper function to shorten a URL with retry logic for rate limiting
 fn shorten_with_retry(
