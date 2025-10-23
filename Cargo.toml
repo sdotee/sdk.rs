@@ -1,0 +1,16 @@
+[package]
+name = "see-rust-sdk"
+version = "1.0.0"
+edition = "2021"
+authors = ["mingcheng <mingcheng@apache.org>"]
+description = "A Rust SDK for URL shortening services by s.ee"
+license = "MIT"
+repository = "https://github.com/sdotee/see-rust-sdk"
+
+[dependencies]
+reqwest = { version = "0.11", features = ["json", "blocking"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+url = "2.5"
+thiserror = "2"
+log = "0.4.28"
