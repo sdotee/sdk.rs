@@ -47,32 +47,28 @@ impl TagService for Client {
 }
 
 #[cfg(test)]
-mod test {
-    use crate::{client::Client, config::Config, tag::TagService};
-    use log::{info, warn};
-    use reqwest::StatusCode;
-    use std::env;
+mod tests {
+    use super::*;
+    use crate::test_helpers::helpers::{assert_status_ok, create_test_client, get_api_key_or_skip};
 
     #[test]
-    fn test_list_tag() -> Result<(), Box<dyn std::error::Error>> {
-        let api_key = env::var("URL_SHORTENER_API_KEY").unwrap_or_else(|_| "".to_string());
-
-        if api_key.is_empty() {
-            warn!("Skipping test_shorten_url: URL_SHORTENER_API_KEY not set");
+    fn test_list_tags() -> std::result::Result<(), Box<dyn std::error::Error>> {
+        // Skip test if API key is not set
+        if get_api_key_or_skip().is_none() {
             return Ok(());
         }
 
-        let config = Config::default().with_api_key(&api_key);
-        let client = Client::new(config)?;
-
+        let client = create_test_client()?;
         let response = client.list()?;
 
-        assert_eq!(response.code, StatusCode::OK);
-        response.data.tags.iter().for_each(|tag| {
-            info!("Tag ID: {}, Name: {}", tag.id, tag.name);
-            assert!(!tag.name.is_empty());
-            assert_ne!(!tag.id, 0);
-        });
+        assert_status_ok(response.code);
+        assert!(!response.data.tags.is_empty(), "Expected at least one tag");
+
+        // Verify each tag has valid data
+        for tag in &response.data.tags {
+            assert!(!tag.name.is_empty(), "Tag name should not be empty");
+            assert_ne!(tag.id, 0, "Tag ID should not be zero");
+        }
 
         Ok(())
     }

@@ -43,33 +43,30 @@ impl DomainService for Client {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
-    use crate::config::Config;
-    use log::{info, warn};
-    use reqwest::StatusCode;
-    use std::env;
-    use std::result::Result;
+    use crate::test_helpers::helpers::{assert_status_ok, create_test_client, get_api_key_or_skip};
 
     #[test]
-    fn test_list_domain() -> Result<(), Box<dyn std::error::Error>> {
-        let api_key = env::var("URL_SHORTENER_API_KEY").unwrap_or_else(|_| "".to_string());
-
-        if api_key.is_empty() {
-            warn!("Skipping test_shorten_url: URL_SHORTENER_API_KEY not set");
+    fn test_list_domains() -> std::result::Result<(), Box<dyn std::error::Error>> {
+        // Skip test if API key is not set
+        if get_api_key_or_skip().is_none() {
             return Ok(());
         }
 
-        let config = Config::default().with_api_key(&api_key);
-        let client = Client::new(config)?;
-
+        let client = create_test_client()?;
         let response = client.list()?;
 
-        assert_eq!(response.code, StatusCode::OK);
-        response.data.domains.iter().for_each(|domain| {
-            info!("Domain: {}", domain);
-            assert!(!str::is_empty(domain));
-        });
+        assert_status_ok(response.code);
+        assert!(
+            !response.data.domains.is_empty(),
+            "Expected at least one domain"
+        );
+
+        // Verify each domain is a valid non-empty string
+        for domain in &response.data.domains {
+            assert!(!domain.is_empty(), "Domain should not be empty");
+        }
 
         Ok(())
     }

@@ -86,12 +86,13 @@ impl Config {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     #[test]
     fn test_default_config() {
         let config = Config::default();
+
         assert_eq!(config.base_url, DEFAULT_BASE_URL);
         assert_eq!(config.timeout, Duration::from_secs(DEFAULT_TIMEOUT_SECS));
         assert_eq!(config.user_agent, DEFAULT_USER_AGENT);
@@ -100,15 +101,29 @@ mod test {
     }
 
     #[test]
-    fn test_custom_config() {
+    fn test_config_with_custom_values() {
         let config = Config::new("https://custom.api")
             .with_api_key("my_api_key")
             .with_timeout(Duration::from_secs(60))
-            .with_user_agent("custom-agent/1.0");
+            .with_user_agent("custom-agent/1.0")
+            .with_max_retries(5);
 
         assert_eq!(config.base_url, "https://custom.api");
         assert_eq!(config.api_key.unwrap(), "my_api_key");
         assert_eq!(config.timeout, Duration::from_secs(60));
         assert_eq!(config.user_agent, "custom-agent/1.0");
+        assert_eq!(config.max_retries, 5);
+    }
+
+    #[test]
+    fn test_config_builder_pattern() {
+        let config = Config::default()
+            .with_api_key("test_key")
+            .with_max_retries(10);
+
+        assert_eq!(config.api_key.unwrap(), "test_key");
+        assert_eq!(config.max_retries, 10);
+        // Other fields should remain default
+        assert_eq!(config.base_url, DEFAULT_BASE_URL);
     }
 }

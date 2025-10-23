@@ -119,12 +119,36 @@ impl Client {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
+    use super::*;
+    use crate::config::Config;
 
-    // #[test]
-    // fn test_client_creation() {
-    //     let config = Config::default();
-    //     let client = Client::new(config).unwrap();
-    //     assert_eq!(client.config.base_url, Config::default().base_url);
-    // }
+    #[test]
+    fn test_client_creation() {
+        let config = Config::default();
+        let client = Client::new(config.clone()).unwrap();
+        assert_eq!(client.config.base_url, config.base_url);
+    }
+
+    #[test]
+    fn test_url_validation() {
+        let client = Client::with_default_config().unwrap();
+
+        assert!(client.is_valid_url("https://example.com"));
+        assert!(client.is_valid_url("http://example.com"));
+        assert!(!client.is_valid_url("ftp://example.com"));
+        assert!(!client.is_valid_url("not-a-url"));
+        assert!(!client.is_valid_url(""));
+    }
+
+    #[test]
+    fn test_api_url_building() {
+        let config = Config::new("https://api.example.com");
+        let client = Client::new(config).unwrap();
+
+        assert_eq!(
+            client.build_api_url("/test"),
+            "https://api.example.com/test"
+        );
+    }
 }

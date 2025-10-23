@@ -55,11 +55,21 @@ impl UrlShortenerRequestBuilder {
 }
 
 #[cfg(test)]
-mod test {
-    use crate::url::builder::UrlShortenerRequestBuilder;
+mod tests {
+    use super::*;
 
     #[test]
-    fn test_url_shortener_request_builder() {
+    fn test_builder_with_basic_url() {
+        let request = UrlShortenerRequestBuilder::new("https://example.com/")
+            .unwrap()
+            .build();
+
+        assert_eq!(request.target_url, "https://example.com/");
+        assert!(request.custom_slug.is_none());
+    }
+
+    #[test]
+    fn test_builder_with_custom_alias() {
         let request = UrlShortenerRequestBuilder::new("https://example.com/")
             .unwrap()
             .with_custom_alias("my-alias")
@@ -67,5 +77,26 @@ mod test {
 
         assert_eq!(request.target_url, "https://example.com/");
         assert_eq!(request.custom_slug.unwrap(), "my-alias");
+    }
+
+    #[test]
+    fn test_builder_with_all_options() {
+        let request = UrlShortenerRequestBuilder::new("https://example.com/")
+            .unwrap()
+            .with_custom_alias("my-alias")
+            .with_domain("custom.domain")
+            .with_expiration("2025-12-31")
+            .build();
+
+        assert_eq!(request.target_url, "https://example.com/");
+        assert_eq!(request.custom_slug.unwrap(), "my-alias");
+        assert_eq!(request.domain, "custom.domain");
+        assert_eq!(request.expire_at.unwrap(), "2025-12-31");
+    }
+
+    #[test]
+    fn test_builder_with_invalid_url() {
+        let result = UrlShortenerRequestBuilder::new("not-a-valid-url");
+        assert!(result.is_err());
     }
 }

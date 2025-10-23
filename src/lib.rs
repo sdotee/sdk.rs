@@ -47,3 +47,6 @@ pub mod config;
 pub mod tag;
 
 pub mod domain;
+
+#[cfg(test)]
+mod test_helpers;
