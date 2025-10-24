@@ -1,5 +1,9 @@
 # S.EE SDK for Rust
 
+[![Crates.io](https://img.shields.io/crates/v/see-rust-sdk.svg)](https://crates.io/crates/see-rust-sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://github.com/sdotee/sdk.rs/actions/workflows/cargo.yml/badge.svg)](https://github.com/sdotee/sdk.rs/actions)
+
 A clean and elegant Rust SDK for URL shortening services using the [s.ee API](https://s.ee).
 
 ## Introduction
@@ -23,6 +27,8 @@ Add this to your `Cargo.toml`:
 [dependencies]
 see-rust-sdk = "1.0.0"
 ```
+
+And then run `cargo build` to download and compile the crate. For the latest version, check out the [crates.io page](https://crates.io/crates/see-rust-sdk).
 
 ## Quick Start
 
