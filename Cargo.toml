@@ -1,5 +1,5 @@
 [package]
-name = "see-rust-sdk"
+name = "see-sdk"
 version = "1.0.0"
 edition = "2024"
 authors = ["mingcheng <mingcheng@apache.org>"]

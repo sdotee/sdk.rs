@@ -1,11 +1,25 @@
+/*!
+ * Copyright (c) 2025 S.EE Development Team
+ *
+ * This source code is licensed under the MIT License,
+ * which is located in the LICENSE file in the source tree's root directory.
+ *
+ * File: batch.rs
+ * Author: S.EE Development Team <dev@s.ee>
+ * File Created: 2025-10-23 15:16:05
+ *
+ * Modified By: S.EE Development Team <dev@s.ee>
+ * Last Modified: 2025-12-04 19:25:08
+ */
+
 use std::{thread, time::Duration};
 
-use see_rust_sdk::client::Client;
-use see_rust_sdk::config::Config;
-use see_rust_sdk::error::Error;
-use see_rust_sdk::url::ShortenService;
-use see_rust_sdk::url::builder::UrlShortenerRequestBuilder;
-use see_rust_sdk::url::models::ShortenResponse;
+use see_sdk::client::Client;
+use see_sdk::config::Config;
+use see_sdk::error::Error;
+use see_sdk::url::ShortenService;
+use see_sdk::url::builder::UrlShortenerRequestBuilder;
+use see_sdk::url::models::ShortenResponse;
 
 /// Helper function to shorten a URL with retry logic for rate limiting
 fn shorten_with_retry(

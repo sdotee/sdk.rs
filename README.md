@@ -1,6 +1,6 @@
 # S.EE SDK for Rust
 
-[![Crates.io](https://img.shields.io/crates/v/see-rust-sdk.svg)](https://crates.io/crates/see-rust-sdk)
+[![Crates.io](https://img.shields.io/crates/v/see-sdk.svg)](https://crates.io/crates/see-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/sdotee/sdk.rs/actions/workflows/cargo.yml/badge.svg)](https://github.com/sdotee/sdk.rs/actions)
 
@@ -8,7 +8,7 @@ A clean and elegant Rust SDK for URL shortening services using the [s.ee API](ht
 
 ## Introduction
 
-see-rust-sdk is a Rust client library specifically designed for the s.ee URL shortening service. It provides a type-safe and easy-to-use API that allows you to easily integrate URL shortening functionality into your Rust applications. Whether you need simple URL shortening or advanced features like custom aliases, expiration times, and tag management, this SDK has you covered.
+see-sdk is a Rust client library specifically designed for the s.ee URL shortening service. It provides a type-safe and easy-to-use API that allows you to easily integrate URL shortening functionality into your Rust applications. Whether you need simple URL shortening or advanced features like custom aliases, expiration times, and tag management, this SDK has you covered.
 
 ## Key Features
 
@@ -25,31 +25,31 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-see-rust-sdk = "1.0.0"
+see-sdk = "1.0.0"
 ```
 
-And then run `cargo build` to download and compile the crate. For the latest version, check out the [crates.io page](https://crates.io/crates/see-rust-sdk).
+And then run `cargo build` to download and compile the crate. For the latest version, check out the [crates.io page](https://crates.io/crates/see-sdk).
 
 ## Quick Start
 
 ```rust
-use see_rust_sdk::client::Client;
-use see_rust_sdk::config::Config;
-use see_rust_sdk::url::builder::UrlShortenerRequestBuilder;
-use see_rust_sdk::url::ShortenService;
+use see_sdk::client::Client;
+use see_sdk::config::Config;
+use see_sdk::url::builder::UrlShortenerRequestBuilder;
+use see_sdk::url::ShortenService;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a client with your API key
     let config = Config::default().with_api_key("your-api-key-here");
     let client = Client::new(config)?;
-    
+
     // Shorten a URL
     let request = UrlShortenerRequestBuilder::new("https://example.com/very/long/url")?
         .build();
-    
+
     let response = client.shorten(request)?;
     println!("Shortened URL: {}", response.data.short_url);
-    
+
     Ok(())
 }
 ```

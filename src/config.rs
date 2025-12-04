@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2025 Hangzhou Guanwaii Technology Co., Ltd.
+ * Copyright (c) 2025 S.EE Development Team
  *
  * This source code is licensed under the MIT License,
  * which is located in the LICENSE file in the source tree's root directory.
@@ -8,8 +8,8 @@
  * Author: mingcheng <mingcheng@apache.org>
  * File Created: 2025-10-23 11:28:59
  *
- * Modified By: mingcheng <mingcheng@apache.org>
- * Last Modified: 2025-10-23 13:11:42
+ * Modified By: S.EE Development Team <dev@s.ee>
+ * Last Modified: 2025-12-04 19:24:47
  */
 
 use std::time::Duration;
@@ -18,7 +18,7 @@ use std::time::Duration;
 pub const DEFAULT_BASE_URL: &str = "https://s.ee";
 
 /// Default user agent string
-pub const DEFAULT_USER_AGENT: &str = concat!("see-rust-sdk/", env!("CARGO_PKG_VERSION"));
+pub const DEFAULT_USER_AGENT: &str = concat!("S.EE-Rust-SDK/", env!("CARGO_PKG_VERSION"));
 
 /// Default timeout in seconds
 pub const DEFAULT_TIMEOUT_SECS: u64 = 30;
