@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/sdotee/sdk.rs/actions/workflows/cargo.yml/badge.svg)](https://github.com/sdotee/sdk.rs/actions)
 
-A clean and elegant Rust SDK for URL shortening services using the [s.ee API](https://s.ee).
+A clean and elegant Rust SDK for URL shortening services using the [s.ee API](https://s.ee/docs/development/api/).
 
 ## Introduction
 
