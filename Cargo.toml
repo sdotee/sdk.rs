@@ -1,14 +1,14 @@
 [package]
 name = "see-sdk"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2024"
 authors = ["mingcheng <mingcheng@apache.org>"]
-description = "A Rust SDK for URL shortening services by s.ee"
+description = "A Rust SDK for content sharing services (URL, Text, File) by S.EE"
 license = "MIT"
 repository = "https://github.com/sdotee/sdk.rs"
 
 [dependencies]
-reqwest = { version = "0.11", features = ["json", "blocking"] }
+reqwest = { version = "0.11", features = ["json", "blocking", "multipart"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 url = "2.5"

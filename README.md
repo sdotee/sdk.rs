@@ -1,21 +1,22 @@
-# S.EE SDK for Rust
+# S.EE Rust SDK
 
 [![Crates.io](https://img.shields.io/crates/v/see-sdk.svg)](https://crates.io/crates/see-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/sdotee/sdk.rs/actions/workflows/cargo.yml/badge.svg)](https://github.com/sdotee/sdk.rs/actions)
 
-A clean and elegant Rust SDK for URL shortening services using the [s.ee API](https://s.ee/docs/development/api/).
+A clean and elegant Rust SDK for content sharing services (URL, Text, File) using the [S.EE API](https://s.ee/docs/developers/).
 
 ## Introduction
 
-see-sdk is a Rust client library specifically designed for the s.ee URL shortening service. It provides a type-safe and easy-to-use API that allows you to easily integrate URL shortening functionality into your Rust applications. Whether you need simple URL shortening or advanced features like custom aliases, expiration times, and tag management, this SDK has you covered.
+see-sdk is a Rust client library specifically designed for the S.EE content sharing service. It provides a type-safe and easy-to-use API that allows you to easily integrate URL shortening, text sharing, and file sharing functionality into your Rust applications. Whether you need simple content sharing or advanced features like custom aliases, expiration times, and tag management, this SDK has you covered.
 
 ## Key Features
 
 - 🚀 **Clean & Intuitive** - Fluent API design that's easy to understand and use
 - 🔒 **Type-Safe** - Complete type checking and error handling
 - ⚙️ **Flexible Configuration** - Support for timeout, retry, custom domains, and more
-- 🏷️ **Feature Complete** - Support for tag management, domain management, URL deletion, and more
+- 📁 **Multi-Format Support** - Unified support for URL shortening, text sharing, and file sharing
+- 🏷️ **Feature Complete** - Support for tag management, domain management, content deletion, and more
 - 📦 **Lightweight Dependencies** - Minimal dependencies for fast compilation
 - ✅ **Well-Tested** - Comprehensive unit tests and documentation
 
@@ -25,44 +26,31 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-see-sdk = "1.0.0"
+see-sdk = "1.1.0"
 ```
 
 And then run `cargo build` to download and compile the crate. For the latest version, check out the [crates.io page](https://crates.io/crates/see-sdk).
 
-## Quick Start
-
-```rust
-use see_sdk::client::Client;
-use see_sdk::config::Config;
-use see_sdk::url::builder::UrlShortenerRequestBuilder;
-use see_sdk::url::ShortenService;
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Create a client with your API key
-    let config = Config::default().with_api_key("your-api-key-here");
-    let client = Client::new(config)?;
-
-    // Shorten a URL
-    let request = UrlShortenerRequestBuilder::new("https://example.com/very/long/url")?
-        .build();
-
-    let response = client.shorten(request)?;
-    println!("Shortened URL: {}", response.data.short_url);
-
-    Ok(())
-}
-```
-
 ## Examples
 
-The `examples/` directory in this repository contains complete usage examples covering various common scenarios:
+For comprehensive usage examples covering all features, please refer to the [examples/](examples/) directory in this repository.
 
-- **`basic.rs`** - Basic URL shortening functionality
-- **`advanced.rs`** - Advanced features (tag management, domain management, custom options, etc.)
-- **`batch.rs`** - Batch processing and error retry logic
+Available examples include:
+- **[basic.rs](examples/basic.rs)**: Basic URL shortening operations
+- **[advanced.rs](examples/advanced.rs)**: Advanced features like custom aliases and expiration
+- **[files.rs](examples/files.rs)**: File upload and management operations
+- **[text.rs](examples/text.rs)**: Text sharing and pastebin functionality
+- **[batch.rs](examples/batch.rs)**: Batch processing capabilities
 
-> 💡 **Tip**: Make sure to set a valid API key in the code before running the examples.
+You can run any example using cargo:
+
+```bash
+# Export your API key first
+export SEE_API_KEY="your-api-key"
+
+# Run a specific example
+cargo run --example basic
+```
 
 ## Development & Testing
 
@@ -73,7 +61,7 @@ Run the test suite:
 cargo test
 
 # Run specific tests (requires API Key environment variable)
-export URL_SHORTENER_API_KEY="your-api-key"
+export SEE_API_KEY="your-api-key"
 cargo test -- --nocapture
 ```
 
