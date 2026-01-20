@@ -42,7 +42,7 @@ pub struct TagListResponse {
 
 impl TagService for Client {
     fn list(&self) -> Result<TagListResponse> {
-        self.execute_request(reqwest::Method::GET, "/api/v1/tags", ())
+        self.execute_request(reqwest::Method::GET, "/tags", ())
     }
 }
 

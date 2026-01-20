@@ -38,7 +38,7 @@ pub struct DomainListResponse {
 
 impl DomainService for Client {
     fn list(&self) -> Result<DomainListResponse> {
-        self.execute_request(reqwest::Method::GET, "/api/v1/domains", ())
+        self.execute_request(reqwest::Method::GET, "/domains", ())
     }
 }
 

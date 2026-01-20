@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2025 Hangzhou Guanwaii Technology Co., Ltd.
+ * Copyright (c) 2025-2026 S.EE Development Team
  *
  * This source code is licensed under the MIT License,
  * which is located in the LICENSE file in the source tree's root directory.
@@ -8,8 +8,8 @@
  * Author: mingcheng <mingcheng@apache.org>
  * File Created: 2025-10-23 11:29:29
  *
- * Modified By: mingcheng <mingcheng@apache.org>
- * Last Modified: 2025-10-23 22:37:13
+ * Modified By: S.EE Development Team <dev@s.ee>
+ * Last Modified: 2026-01-20 11:16:52
  */
 use crate::config::Config;
 use crate::error::{Error, ErrorResponse, Result};
@@ -18,7 +18,7 @@ use reqwest::blocking::{Client as HttpClient, Response};
 use std::sync::Arc;
 use url::Url;
 
-/// HTTP client for URL shortening operations
+/// HTTP client for content sharing operations
 #[derive(Debug, Clone)]
 pub struct Client {
     http_client: HttpClient,
@@ -26,7 +26,7 @@ pub struct Client {
 }
 
 impl Client {
-    /// Create a new URL shortener client with the given configuration
+    /// Create a new content sharing client with the given configuration
     pub fn new(config: Config) -> Result<Self> {
         let http_client = HttpClient::builder()
             .timeout(config.timeout)
@@ -98,6 +98,16 @@ impl Client {
         }
     }
 
+    /// Process the request: add auth header, send, and handle response
+    fn process_request<Res>(&self, req_builder: reqwest::blocking::RequestBuilder) -> Result<Res>
+    where
+        Res: serde::de::DeserializeOwned,
+    {
+        let req_builder = self.add_auth_header(req_builder);
+        let response = req_builder.send()?;
+        self.handle_response::<Res>(response)
+    }
+
     /// Execute an API request with the given method and body
     pub fn execute_request<Req, Res>(
         &self,
@@ -111,10 +121,32 @@ impl Client {
     {
         let url = self.build_api_url(path);
         let req_builder = self.http_client.request(method, &url).json(&request);
-        let req_builder = self.add_auth_header(req_builder);
+        self.process_request(req_builder)
+    }
 
-        let response = req_builder.send()?;
-        self.handle_response::<Res>(response)
+    /// Execute an API request without a request body
+    pub fn execute_request_no_body<Res>(&self, method: reqwest::Method, path: &str) -> Result<Res>
+    where
+        Res: serde::de::DeserializeOwned,
+    {
+        let url = self.build_api_url(path);
+        let req_builder = self.http_client.request(method, &url);
+        self.process_request(req_builder)
+    }
+
+    /// Execute a multipart API request
+    pub fn execute_multipart_request<Res>(
+        &self,
+        method: reqwest::Method,
+        path: &str,
+        form: reqwest::blocking::multipart::Form,
+    ) -> Result<Res>
+    where
+        Res: serde::de::DeserializeOwned,
+    {
+        let url = self.build_api_url(path);
+        let req_builder = self.http_client.request(method, &url).multipart(form);
+        self.process_request(req_builder)
     }
 }
 

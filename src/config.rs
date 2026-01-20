@@ -15,7 +15,7 @@
 use std::time::Duration;
 
 /// Default base URL for the API
-pub const DEFAULT_BASE_URL: &str = "https://s.ee";
+pub const DEFAULT_BASE_URL: &str = "https://s.ee/api/v1";
 
 /// Default user agent string
 pub const DEFAULT_USER_AGENT: &str = concat!("S.EE-Rust-SDK/", env!("CARGO_PKG_VERSION"));
@@ -29,7 +29,7 @@ pub const DEFAULT_MAX_RETRIES: u32 = 3;
 /// Default domain for shortened URLs
 pub const DEFAULT_DOMAIN: &str = "s.ee";
 
-/// Client configuration for URL shortener
+/// Client configuration for content sharing
 #[derive(Debug, Clone)]
 pub struct Config {
     pub base_url: String,

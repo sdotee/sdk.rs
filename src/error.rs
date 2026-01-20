@@ -23,7 +23,7 @@ pub struct ErrorResponse {
     pub data: String,
 }
 
-/// Error types for URL shortener operations
+/// Error types for content sharing operations
 #[derive(Error, Debug)]
 pub enum Error {
     /// HTTP request failed
@@ -54,6 +54,10 @@ pub enum Error {
     #[error("Rate limit exceeded")]
     RateLimited,
 
+    /// IO Error
+    #[error("IO error: {0}")]
+    IoError(#[from] std::io::Error),
+
     /// Generic error
     #[error("Error: {0}")]
     GenericError(String),
@@ -65,5 +69,5 @@ impl From<Box<dyn std::error::Error>> for Error {
     }
 }
 
-/// Result type alias for URL shortener operations
+/// Result type alias for content sharing operations
 pub type Result<T> = std::result::Result<T, Error>;

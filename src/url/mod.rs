@@ -31,12 +31,12 @@ impl ShortenService for Client {
             return Err(Error::InvalidUrl(request.target_url));
         }
 
-        self.execute_request(reqwest::Method::POST, "/api/v1/shorten", request)
+        self.execute_request(reqwest::Method::POST, "/shorten", request)
     }
 
     /// Delete a shortened URL using the configured service
     fn delete(&self, request: DeleteRequest) -> Result<DeleteResponse> {
-        self.execute_request(reqwest::Method::DELETE, "/api/v1/shorten", request)
+        self.execute_request(reqwest::Method::DELETE, "/shorten", request)
     }
 }
 

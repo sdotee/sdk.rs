@@ -19,10 +19,10 @@ pub mod helpers {
 
     /// Get API key from environment variable, skip test if not set
     pub fn get_api_key_or_skip() -> Option<String> {
-        match env::var("URL_SHORTENER_API_KEY") {
+        match env::var("SEE_API_KEY") {
             Ok(key) if !key.is_empty() => Some(key),
             _ => {
-                log::warn!("Skipping test: URL_SHORTENER_API_KEY not set");
+                log::warn!("Skipping test: SEE_API_KEY not set");
                 None
             }
         }

@@ -1,20 +1,20 @@
 /*!
- * Copyright (c) 2025 S.EE Development Team
+ * Copyright (c) 2025-2026 S.EE Development Team
  *
  * This source code is licensed under the MIT License,
  * which is located in the LICENSE file in the source tree's root directory.
  *
  * File: lib.rs
- * Author: mingcheng <mingcheng@apache.org>
+ * Author: S.EE Development Team <dev@s.ee>
  * File Created: 2025-10-23 11:07:28
  *
  * Modified By: S.EE Development Team <dev@s.ee>
- * Last Modified: 2025-12-04 19:25:17
+ * Last Modified: 2026-01-19 23:44:40
  */
 
-//! A Rust SDK for URL shortening services.
+//! A Rust SDK for content sharing services (URL, Text, File).
 //!
-//! This crate provides a simple and elegant interface for shortening URLs
+//! This crate provides a simple and elegant interface for content sharing
 //! using the s.ee service.
 //!
 //! # Example
@@ -47,6 +47,10 @@ pub mod config;
 pub mod tag;
 
 pub mod domain;
+
+pub mod file;
+
+pub mod text;
 
 #[cfg(test)]
 mod test_helpers;
