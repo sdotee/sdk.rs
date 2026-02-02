@@ -45,7 +45,7 @@ pub struct FileUploadResponse {
 /// Response structure for file deletion
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct FileDeleteResponse {
-    pub code: serde_json::Value,
+    pub code: String,
     pub message: String,
     pub success: bool,
 }

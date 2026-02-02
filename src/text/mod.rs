@@ -67,7 +67,13 @@ mod tests {
         // 1. Create Text
         let create_req = CreateTextRequest {
             content: "Hello from Rust SDK".to_string(),
-            title: Some("Rust SDK Test".to_string()),
+            title: "Rust SDK Test".to_string(),
+            domain: None,
+            custom_slug: None,
+            expire_at: None,
+            password: None,
+            tag_ids: None,
+            text_type: None,
         };
 
         let create_resp = client.create_text(create_req).unwrap();
@@ -95,7 +101,7 @@ mod tests {
             content: "Updated content from Rust SDK".to_string(),
             domain: domain.clone(),
             slug: slug.clone(),
-            title: Some("Rust SDK Updated".to_string()),
+            title: "Rust SDK Updated".to_string(),
         };
 
         let update_resp = client.update_text(update_req).unwrap();

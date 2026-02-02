@@ -29,11 +29,11 @@ pub struct ShortenRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_redirect_url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub expire_at: Option<String>,
+    pub expire_at: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub password: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tag_ids: Option<Vec<String>>,
+    pub tag_ids: Option<Vec<u32>>,
 }
 
 impl Default for ShortenRequest {
@@ -51,6 +51,16 @@ impl Default for ShortenRequest {
     }
 }
 
+/// Request structure for updating a short URL
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct UpdateShortURLRequest {
+    pub domain: String,
+    pub slug: String,
+    pub target_url: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+}
+
 /// Response structure for URL shortening
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct ShortenResponse {
@@ -62,7 +72,7 @@ pub struct ShortenResponse {
 /// Data structure containing shortened URL information
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct ShortenData {
-    pub custom_slug: String,
+    pub custom_slug: Option<String>,
     pub short_url: String,
     pub slug: String,
 }
@@ -78,5 +88,42 @@ pub struct DeleteRequest {
 pub struct DeleteResponse {
     pub code: u16,
     pub message: String,
-    pub data: Option<String>,
+    pub data: Option<serde_json::Value>,
+}
+
+/// Request structure for link visit statistics
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct GetLinkVisitStatRequest {
+    pub domain: String,
+    pub slug: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub period: Option<String>,
+}
+
+/// Data structure for link visit statistics
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct LinkVisitStatData {
+    pub visit_count: i64,
+}
+
+/// Response structure for link visit statistics
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct GetLinkVisitStatResponse {
+    pub code: u16,
+    pub message: String,
+    pub data: LinkVisitStatData,
+}
+
+/// Data structure for available domains
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct DomainsData {
+    pub domains: Vec<String>,
+}
+
+/// Response structure for available domains
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct GetAvailableDomainsResponse {
+    pub code: u16,
+    pub message: String,
+    pub data: DomainsData,
 }

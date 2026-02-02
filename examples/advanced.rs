@@ -51,14 +51,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("\n🔗 Creating shortened URL with custom options...");
     let request = UrlShortenerRequestBuilder::new("https://www.example.com/product/123")?
         .with_custom_alias("summer-sale")
-        .with_expiration("2025-12-31T23:59:59Z")
+        .with_expiration(1830297599) // 2027-12-31T23:59:59Z
         .build();
 
     let response = client.shorten(request)?;
 
     println!("✓ URL shortened successfully!");
     println!("  Short URL: {}", response.data.short_url);
-    println!("  Custom Slug: {}", response.data.custom_slug);
+    if let Some(slug) = &response.data.custom_slug {
+        println!("  Custom Slug: {}", slug);
+    }
     println!("  Message: {}", response.message);
 
     Ok(())

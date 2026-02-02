@@ -39,8 +39,8 @@ impl UrlShortenerRequestBuilder {
         self
     }
 
-    pub fn with_expiration(mut self, expiration: impl Into<String>) -> Self {
-        self.data.expire_at = Some(expiration.into());
+    pub fn with_expiration(mut self, expiration: i64) -> Self {
+        self.data.expire_at = Some(expiration);
         self
     }
 
@@ -85,13 +85,13 @@ mod tests {
             .unwrap()
             .with_custom_alias("my-alias")
             .with_domain("custom.domain")
-            .with_expiration("2025-12-31")
+            .with_expiration(1735689600)
             .build();
 
         assert_eq!(request.target_url, "https://example.com/");
         assert_eq!(request.custom_slug.unwrap(), "my-alias");
         assert_eq!(request.domain, "custom.domain");
-        assert_eq!(request.expire_at.unwrap(), "2025-12-31");
+        assert_eq!(request.expire_at.unwrap(), 1735689600);
     }
 
     #[test]

@@ -27,7 +27,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Creating text snippet...");
     let create_req = CreateTextRequest {
         content: "This is a text snippet created via Rust SDK.".to_string(),
-        title: Some("My Rust Snippet".to_string()),
+        title: "My Rust Snippet".to_string(),
+        domain: None,
+        custom_slug: None,
+        expire_at: None,
+        password: None,
+        tag_ids: None,
+        text_type: None,
     };
 
     let create_resp = client.create_text(create_req)?;
@@ -48,7 +54,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         content: "This content has been updated.".to_string(),
         domain: domain.clone(),
         slug: slug.clone(),
-        title: Some("Updated Rust Snippet".to_string()),
+        title: "Updated Rust Snippet".to_string(),
     };
 
     client.update_text(update_req)?;

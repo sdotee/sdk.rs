@@ -14,14 +14,23 @@
 
 use crate::client::Client;
 use crate::error::{Error, Result};
-use crate::url::models::{DeleteRequest, DeleteResponse, ShortenRequest, ShortenResponse};
+use crate::url::models::{
+    DeleteRequest, DeleteResponse, GetAvailableDomainsResponse, GetLinkVisitStatRequest,
+    GetLinkVisitStatResponse, ShortenRequest, ShortenResponse, UpdateShortURLRequest,
+};
 
 pub mod builder;
 pub mod models;
 
 pub trait ShortenService {
     fn shorten(&self, request: ShortenRequest) -> Result<ShortenResponse>;
+    fn update_short_url(&self, request: UpdateShortURLRequest) -> Result<ShortenResponse>;
     fn delete(&self, request: DeleteRequest) -> Result<DeleteResponse>;
+    fn get_link_visit_stat(
+        &self,
+        request: GetLinkVisitStatRequest,
+    ) -> Result<GetLinkVisitStatResponse>;
+    fn get_available_domains(&self) -> Result<GetAvailableDomainsResponse>;
 }
 
 impl ShortenService for Client {
@@ -34,9 +43,36 @@ impl ShortenService for Client {
         self.execute_request(reqwest::Method::POST, "/shorten", request)
     }
 
+    /// Update a short URL
+    fn update_short_url(&self, request: UpdateShortURLRequest) -> Result<ShortenResponse> {
+        self.execute_request(reqwest::Method::PUT, "/shorten", request)
+    }
+
     /// Delete a shortened URL using the configured service
     fn delete(&self, request: DeleteRequest) -> Result<DeleteResponse> {
         self.execute_request(reqwest::Method::DELETE, "/shorten", request)
+    }
+
+    /// Get usage statistics for a short URL
+    fn get_link_visit_stat(
+        &self,
+        request: GetLinkVisitStatRequest,
+    ) -> Result<GetLinkVisitStatResponse> {
+        let mut params = vec![
+            ("domain", request.domain),
+            ("slug", request.slug),
+        ];
+
+        if let Some(period) = request.period {
+            params.push(("period", period));
+        }
+
+        self.execute_request_with_query(reqwest::Method::GET, "/link/visit-stat", &params)
+    }
+
+    /// Get available domains for short URLs
+    fn get_available_domains(&self) -> Result<GetAvailableDomainsResponse> {
+        self.execute_request_no_body(reqwest::Method::GET, "/domains")
     }
 }
 

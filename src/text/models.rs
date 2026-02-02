@@ -18,14 +18,25 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct CreateTextRequest {
     pub content: String,
+    pub title: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
+    pub domain: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub custom_slug: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expire_at: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub password: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tag_ids: Option<Vec<u32>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub text_type: Option<String>,
 }
 
 /// Data structure for created text
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct CreateTextData {
-    pub custom_slug: String,
+    pub custom_slug: Option<String>,
     pub short_url: String,
     pub slug: String,
 }
@@ -44,8 +55,7 @@ pub struct UpdateTextRequest {
     pub content: String,
     pub domain: String,
     pub slug: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
+    pub title: String,
 }
 
 /// Response for updating text sharing

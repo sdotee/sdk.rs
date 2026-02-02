@@ -134,6 +134,21 @@ impl Client {
         self.process_request(req_builder)
     }
 
+    /// Execute an API request with query parameters
+    pub fn execute_request_with_query<Res>(
+        &self,
+        method: reqwest::Method,
+        path: &str,
+        query: &[(&str, String)],
+    ) -> Result<Res>
+    where
+        Res: serde::de::DeserializeOwned,
+    {
+        let url = self.build_api_url(path);
+        let req_builder = self.http_client.request(method, &url).query(query);
+        self.process_request(req_builder)
+    }
+
     /// Execute a multipart API request
     pub fn execute_multipart_request<Res>(
         &self,
