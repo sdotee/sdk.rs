@@ -1,8 +1,8 @@
 [package]
 name = "see-sdk"
-version = "1.2.0"
+version = "1.2.1"
 edition = "2024"
-authors = ["mingcheng <mingcheng@apache.org>"]
+authors = ["SEE Development Team <dev@s.ee>", "mingcheng <mingcheng@apache.org>"]
 description = "A Rust SDK for content sharing services (URL, Text, File) by S.EE"
 license = "MIT"
 repository = "https://github.com/sdotee/sdk.rs"
