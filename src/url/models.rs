@@ -20,18 +20,33 @@ use serde::{Deserialize, Serialize};
 /// Request structure for URL shortening
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct ShortenRequest {
+    /// The URL to be shortened
     pub target_url: String,
+
+    /// The domain to use for the short URL
     pub domain: String,
+
+    /// Optional title for the short URL
     #[serde(skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
+
+    /// Custom slug for the short URL
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_slug: Option<String>,
+
+    /// Optional redirect URL after expiration
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_redirect_url: Option<String>,
+
+    /// Optional expiration timestamp (Unix epoch)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expire_at: Option<i64>,
+
+    /// Optional password for accessing the short URL
     #[serde(skip_serializing_if = "Option::is_none")]
     pub password: Option<String>,
+
+    /// Optional list of tag IDs to associate with the short URL
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tag_ids: Option<Vec<u32>>,
 }
@@ -54,9 +69,16 @@ impl Default for ShortenRequest {
 /// Request structure for updating a short URL
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct UpdateShortURLRequest {
+    /// The domain of the short URL
     pub domain: String,
+
+    /// The slug of the short URL
     pub slug: String,
+
+    /// The new target URL
     pub target_url: String,
+
+    /// Optional new title
     #[serde(skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
 }
@@ -72,14 +94,23 @@ pub struct ShortenResponse {
 /// Data structure containing shortened URL information
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct ShortenData {
+    /// The custom slug if provided
     pub custom_slug: Option<String>,
+
+    /// The full shortened URL
     pub short_url: String,
+
+    /// The effective slug
     pub slug: String,
 }
 
+/// Request structure for deleting a short URL
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct DeleteRequest {
+    /// The domain of the short URL
     pub domain: String,
+
+    /// The slug of the short URL to delete
     pub slug: String,
 }
 

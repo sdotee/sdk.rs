@@ -9,7 +9,7 @@
  * File Created: 2026-01-19 23:39:03
  *
  * Modified By: S.EE Development Team <dev@s.ee>
- * Last Modified: 2026-01-19 23:50:26
+ * Last Modified: 2026-02-03 10:32:25
  */
 
 use serde::{Deserialize, Serialize};
@@ -17,18 +17,33 @@ use serde::{Deserialize, Serialize};
 /// Request structure for creating text sharing
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct CreateTextRequest {
+    /// The text content to share
     pub content: String,
+
+    /// Title for the text snippets
     pub title: String,
+
+    /// Optional specific domain to use
     #[serde(skip_serializing_if = "Option::is_none")]
     pub domain: Option<String>,
+
+    /// Optional custom slug
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_slug: Option<String>,
+
+    /// Optional expiration timestamp
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expire_at: Option<i64>,
+
+    /// Optional password for protection
     #[serde(skip_serializing_if = "Option::is_none")]
     pub password: Option<String>,
+
+    /// Optional tag IDs
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tag_ids: Option<Vec<u32>>,
+
+    /// Optional text type (e.g., syntax highlighting)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub text_type: Option<String>,
 }
@@ -52,9 +67,16 @@ pub struct CreateTextResponse {
 /// Request structure for updating text sharing
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct UpdateTextRequest {
+    /// The new content
     pub content: String,
+
+    /// The domain of the shared text
     pub domain: String,
+
+    /// The slug of the shared text
     pub slug: String,
+
+    /// The new title
     pub title: String,
 }
 
@@ -69,7 +91,10 @@ pub struct UpdateTextResponse {
 /// Request structure for deleting text sharing
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct DeleteTextRequest {
+    /// The domain of the shared text
     pub domain: String,
+
+    /// The slug of the shared text to delete
     pub slug: String,
 }
 

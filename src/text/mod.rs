@@ -22,9 +22,16 @@ use crate::text::models::{
 pub mod models;
 
 pub trait TextService {
+    /// Create a new text sharing entry
     fn create_text(&self, request: CreateTextRequest) -> Result<CreateTextResponse>;
+
+    /// Update an existing text sharing entry
     fn update_text(&self, request: UpdateTextRequest) -> Result<UpdateTextResponse>;
+
+    /// Delete a text sharing entry
     fn delete_text(&self, request: DeleteTextRequest) -> Result<DeleteTextResponse>;
+
+    /// Get available domains for text sharing
     fn get_text_domains(&self) -> Result<TextDomainsResponse>;
 }
 

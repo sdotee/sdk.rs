@@ -17,19 +17,42 @@ use serde::{Deserialize, Serialize};
 /// Data structure for file information
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct FileData {
+    /// Deletion key/URL
     pub delete: String,
+
+    /// Unique file ID
     pub file_id: u64,
+
+    /// Original filename
     pub filename: String,
+
+    /// File hash/key
     pub hash: String,
+
+    /// Image height (if applicable)
     #[serde(default)]
     pub height: Option<u32>,
+
+    /// Page/extension info
     #[serde(default)]
     pub page: Option<String>,
+
+    /// File path
     pub path: String,
+
+    /// File size in bytes
     pub size: u64,
+
+    /// Storage name
     pub storename: String,
+
+    /// Upload status code
     pub upload_status: i32,
+
+    /// Full URL to the file
     pub url: String,
+
+    /// Image width (if applicable)
     #[serde(default)]
     pub width: Option<u32>,
 }

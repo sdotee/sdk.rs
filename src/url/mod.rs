@@ -23,13 +23,22 @@ pub mod builder;
 pub mod models;
 
 pub trait ShortenService {
+    /// Shorten a new URL
     fn shorten(&self, request: ShortenRequest) -> Result<ShortenResponse>;
+
+    /// Update an existing short URL
     fn update_short_url(&self, request: UpdateShortURLRequest) -> Result<ShortenResponse>;
+
+    /// Delete a short URL
     fn delete(&self, request: DeleteRequest) -> Result<DeleteResponse>;
+
+    /// Get usage statistics for a short URL
     fn get_link_visit_stat(
         &self,
         request: GetLinkVisitStatRequest,
     ) -> Result<GetLinkVisitStatResponse>;
+
+    /// Get available domains for short URLs
     fn get_available_domains(&self) -> Result<GetAvailableDomainsResponse>;
 }
 

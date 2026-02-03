@@ -1,15 +1,15 @@
 /*!
- * Copyright (c) 2025 Hangzhou Guanwaii Technology Co., Ltd.
+ * Copyright (c) 2026 S.EE Development Team
  *
  * This source code is licensed under the MIT License,
  * which is located in the LICENSE file in the source tree's root directory.
  *
  * File: error.rs
- * Author: mingcheng <mingcheng@apache.org>
+ * Author: S.EE Development Team <dev@s.ee>
  * File Created: 2025-10-23 11:21:39
  *
- * Modified By: mingcheng <mingcheng@apache.org>
- * Last Modified: 2025-10-23 22:37:59
+ * Modified By: S.EE Development Team <dev@s.ee>
+ * Last Modified: 2026-02-03 10:28:06
  */
 
 use serde::{Deserialize, Serialize};

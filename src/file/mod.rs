@@ -21,8 +21,13 @@ use std::path::Path;
 pub mod models;
 
 pub trait FileService {
+    /// Upload a file for sharing
     fn upload_file<P: AsRef<Path>>(&self, file_path: P) -> Result<FileUploadResponse>;
+
+    /// Delete a shared file
     fn delete_file(&self, key: &str) -> Result<FileDeleteResponse>;
+
+    /// Get available domains for file sharing
     fn get_file_domains(&self) -> Result<FileDomainsResponse>;
 }
 

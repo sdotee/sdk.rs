@@ -18,11 +18,21 @@ use url::Url;
 
 use crate::url::models::ShortenRequest;
 
+/// Builder for creating a URL shortening request
 pub struct UrlShortenerRequestBuilder {
     data: ShortenRequest,
 }
 
 impl UrlShortenerRequestBuilder {
+    /// Create a new builder with the target URL
+    ///
+    /// # Arguments
+    ///
+    /// * `url` - The URL to be shortened
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the URL is invalid
     pub fn new(url: impl Into<String>) -> Result<Self, Box<dyn Error>> {
         let url = Url::parse(&url.into())?;
 
@@ -34,21 +44,25 @@ impl UrlShortenerRequestBuilder {
         })
     }
 
+    /// Set a custom alias (slug) for the short URL
     pub fn with_custom_alias(mut self, alias: impl Into<String>) -> Self {
         self.data.custom_slug = Some(alias.into());
         self
     }
 
+    /// Set an expiration time for the short URL
     pub fn with_expiration(mut self, expiration: i64) -> Self {
         self.data.expire_at = Some(expiration);
         self
     }
 
+    /// Set the domain for the short URL
     pub fn with_domain(mut self, domain: impl Into<String>) -> Self {
         self.data.domain = domain.into();
         self
     }
 
+    /// Build the ShortenRequest
     pub fn build(self) -> ShortenRequest {
         self.data
     }

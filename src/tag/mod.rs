@@ -1,15 +1,15 @@
 /*!
- * Copyright (c) 2025 Hangzhou Guanwaii Technology Co., Ltd.
+ * Copyright (c) 2026 S.EE Development Team
  *
  * This source code is licensed under the MIT License,
  * which is located in the LICENSE file in the source tree's root directory.
  *
  * File: mod.rs
- * Author: mingcheng <mingcheng@apache.org>
+ * Author: S.EE Development Team <dev@s.ee>
  * File Created: 2025-10-23 17:25:13
  *
- * Modified By: mingcheng <mingcheng@apache.org>
- * Last Modified: 2025-10-24 00:17:26
+ * Modified By: S.EE Development Team <dev@s.ee>
+ * Last Modified: 2026-02-03 10:27:35
  */
 
 use std::str;
@@ -18,13 +18,19 @@ use crate::client::Client;
 use crate::error::Result;
 use serde::{Deserialize, Serialize};
 
+/// Represents a tag
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Tag {
+    /// Unique identifier for the tag
     pub id: u32,
+
+    /// Name of the tag
     pub name: String,
 }
 
+/// Service for managing tags
 pub trait TagService {
+    /// List all available tags
     fn list(&self) -> Result<TagListResponse>;
 }
 
